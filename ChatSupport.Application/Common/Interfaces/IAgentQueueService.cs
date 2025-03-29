@@ -10,6 +10,7 @@ namespace ChatSupport.Application.Common.Interfaces
         Task<double> GetTeamMaxQueueCapacity();
         Task<int> AssignChatToAvailableAgent(Guid chatId);
         Task UnAssignChatFromAgent(int agentId, Guid chatId);
+        Task UpdateAgentShift(int agentId, bool isOnShift);
         Task<List<Agent>> GetAllAgents();
         void ClearAgentQueue();
     }

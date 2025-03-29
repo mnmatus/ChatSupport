@@ -22,9 +22,11 @@ namespace ChatSupport.Infrastructure.Services
             {
                 var now = _systemDateTimeService.Now;
                 var chatSessions = await _chatSessionService.GetAllAssignedChatSessions();
+                chatSessions = chatSessions.Where(i => i.IsActive == true).ToList();
                 foreach (var session in chatSessions)
                 {
-                    if ((now - session.LastPolledAt).TotalSeconds > 7)
+                    var secondsSinceLastPoll = (now - session.LastPolledAt).TotalSeconds;
+                    if (secondsSinceLastPoll > 10)
                     {
                         await _chatSessionService.MarkSessionAsInactive(session.Id);
                         await _agentQueueService.UnAssignChatFromAgent(session.AssignedAgentId.Value, session.Id);

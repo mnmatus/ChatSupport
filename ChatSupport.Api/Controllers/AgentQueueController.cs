@@ -1,4 +1,6 @@
-﻿using ChatSupport.Application.Features.AgentQueue.Queries;
+﻿using ChatSupport.Application.Features.AgentQueue.Commands.UpdateAgentShift;
+using ChatSupport.Application.Features.AgentQueue.Queries;
+using ChatSupport.Application.Features.ChatSession.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatSupport.Api.Controllers
@@ -19,6 +21,13 @@ namespace ChatSupport.Api.Controllers
             var request = new GetAllAgentsQuery();
             var response = await Mediator.Send(request);
             return Ok(response);
+        }
+
+        [HttpPost("update-agent-shift")]
+        public async Task<IActionResult> UpdateAgentShift([FromBody] UpdateAgentShiftCommand request)
+        {
+            await Mediator.Send(request);
+            return Ok();
         }
     }
 }

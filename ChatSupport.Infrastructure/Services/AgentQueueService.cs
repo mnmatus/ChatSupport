@@ -92,6 +92,13 @@ namespace ChatSupport.Infrastructure.Services
         {
             AgentQueue.Clear();
         }
+
+        public Task UpdateAgentShift(int agentId, bool isOnShift)
+        {
+            var agent = AgentQueue.Single(a => a.Id == agentId);
+            agent.IsOnShift = isOnShift;
+            return Task.CompletedTask;
+        }
     }
 }
 
